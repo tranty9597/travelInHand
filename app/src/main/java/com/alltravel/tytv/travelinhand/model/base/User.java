@@ -15,13 +15,16 @@ public class User implements Serializable {
     private String fullName;
     @SerializedName("email")
     private String email;
+    @SerializedName("accessToken")
+    private String accessToken;
 
-    public User(String username, String password, String phone, String fullName, String email) {
+    public User(String username, String password, String phone, String fullName, String email, String accessToken) {
         this.username = username;
         this.password = password;
         this.phone = phone;
         this.fullName = fullName;
         this.email = email;
+        this.accessToken = accessToken;
     }
 
     public User() {
@@ -65,5 +68,13 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getAccessToken() {
+        return accessToken;
+    }
+
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 }
