@@ -99,10 +99,11 @@ public class DasboardActivity extends AppCompatActivity
     }
     private void initComponent(){
         User userIntance = UserInstance.getUserInstance();
+        
 
     }
     private void onGoToOnTravel(){
-        Intent i = new Intent(this, LoginActivity.class);
+        Intent i = new Intent(this, OnTravelActitvity.class);
         startActivity(i);
     }
 }

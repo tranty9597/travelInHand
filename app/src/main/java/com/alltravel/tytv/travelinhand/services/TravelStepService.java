@@ -6,9 +6,7 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface TravelService {
-    @GET("travel/get")
-    Call<Object> getTravels(@Query("username") String username);
+public interface TravelStepService {
 
     @GET("travelStep/get")
     Call<Object> getTravelSteps(@Query("travelID") int travelId);

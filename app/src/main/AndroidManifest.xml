@@ -22,7 +22,10 @@
         <activity
             android:name=".DasboardActivity"
             android:label="@string/title_activity_dasboard"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".OnTravelActitvity"
+            android:label="@string/title_activity_on_travel_actitvity"></activity>
     </application>
 
 </manifest>
