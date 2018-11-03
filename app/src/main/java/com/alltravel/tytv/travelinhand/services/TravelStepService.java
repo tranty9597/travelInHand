@@ -10,4 +10,7 @@ public interface TravelStepService {
 
     @GET("travelStep/get")
     Call<Object> getTravelSteps(@Query("travelID") int travelId);
+
+    @GET("travelStep/getDetail")
+    Call<Object> getStepDetail(@Query("id") int id);
 }

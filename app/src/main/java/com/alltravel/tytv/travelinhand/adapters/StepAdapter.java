@@ -1,13 +1,16 @@
 package com.alltravel.tytv.travelinhand.adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alltravel.tytv.travelinhand.LoginActivity;
 import com.alltravel.tytv.travelinhand.R;
+import com.alltravel.tytv.travelinhand.StepDetailActivity;
 import com.alltravel.tytv.travelinhand.model.base.TravelStep;
 import com.alltravel.tytv.travelinhand.singleton.RetrofitInstance;
 import com.alltravel.tytv.travelinhand.utils.DownloadImageTask;
@@ -41,7 +44,7 @@ public class StepAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         StepHolder stepHolder;
-        TravelStep step = travelSteps.get(position);
+        final TravelStep step = travelSteps.get(position);
         if(convertView == null){
             stepHolder = new StepHolder();
             convertView = activity.getLayoutInflater().inflate(R.layout.step_item, null);
@@ -57,6 +60,15 @@ public class StepAdapter extends BaseAdapter {
         if(step != null){
             new DownloadImageTask(stepHolder.stepImg).execute(RetrofitInstance.BASE_URL + "image/getByID?id=1");
         }
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, StepDetailActivity.class);
+                intent.putExtra("stepID", step.getId());
+
+                activity.startActivity(intent);
+            }
+        });
         stepHolder.stepTitle.setText(step.getFromCity() + " - " + step.getToCity());
         stepHolder.stepDesc.setText(step.getStardDate() + step.getEndDate());
         return convertView;

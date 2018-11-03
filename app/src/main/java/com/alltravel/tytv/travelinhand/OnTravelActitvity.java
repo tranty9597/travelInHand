@@ -111,8 +111,7 @@ public class OnTravelActitvity extends AppCompatActivity {
                                 stepObj.get("startDate").getAsString(),
                                 stepObj.get("endDate").getAsString(),
                                 stepObj.get("fromCity").getAsString(),
-//                                stepObj.get("fromCIty").getAsString()
-                                "Hp",
+                                stepObj.get("toCity").getAsString(),
                                 stepObj.get("status").getAsInt()
                         ));
                     }

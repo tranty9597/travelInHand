@@ -1,6 +1,7 @@
 package com.alltravel.tytv.travelinhand;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,7 +27,7 @@ public class LoginActivity extends Activity {
     private EditText usernameTxt;
     private EditText passwordTxt;
     private TextView loginErrorTxt;
-
+    private ProgressDialog progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -36,6 +37,11 @@ public class LoginActivity extends Activity {
         usernameTxt = findViewById(R.id.usernameTxt);
         passwordTxt = findViewById(R.id.passwordTxt);
         loginErrorTxt = findViewById(R.id.loginErrorTxt);
+
+        progressBar = new ProgressDialog(this);
+        progressBar.setTitle("Loading");
+        progressBar.setMessage("Wait while loading...");
+        progressBar.setCancelable(false);
     }
 
     public void doLogin(View view){
@@ -45,6 +51,7 @@ public class LoginActivity extends Activity {
         User userTxt = new User();
         userTxt.setUsername(username);
         userTxt.setPassword(password);
+        progressBar.show();
         fetchLogin(userTxt);
 
     }
@@ -56,9 +63,8 @@ public class LoginActivity extends Activity {
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-
                 JsonParser parser = new JsonParser();
-
+                progressBar.dismiss();
                 JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
                 loginErrorTxt.setText(resJson.get("message").getAsString());
                 if(resJson.get("isError").getAsBoolean()){
@@ -79,6 +85,7 @@ public class LoginActivity extends Activity {
             public void onFailure(Call<Object> call, Throwable t) {
                 loginErrorTxt.setText(t.getMessage());
                 Log.wtf("sss", t.getMessage());
+                progressBar.dismiss();
             }
         });
     }
