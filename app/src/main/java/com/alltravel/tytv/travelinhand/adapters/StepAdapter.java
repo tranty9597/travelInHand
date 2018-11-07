@@ -58,7 +58,7 @@ public class StepAdapter extends BaseAdapter {
             stepHolder = (StepHolder) convertView.getTag();
         }
         if(step != null){
-            new DownloadImageTask(stepHolder.stepImg).execute(RetrofitInstance.BASE_URL + "image/getByID?id=1");
+            new DownloadImageTask(stepHolder.stepImg).execute(RetrofitInstance.BASE_URL + "image/getByID?id=" + step.getImageId());
         }
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override

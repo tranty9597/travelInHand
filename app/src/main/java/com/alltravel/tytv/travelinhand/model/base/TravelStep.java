@@ -17,14 +17,16 @@ public class TravelStep implements Serializable {
     private String fromCity;
     private String toCity;
     private int status;
+    private int imageId;
 
-    public TravelStep(int id, String stardDate, String endDate, String fromCity, String toCity, int status) {
+    public TravelStep(int id, String stardDate, String endDate, String fromCity, String toCity, int status, int imageID) {
         this.id = id;
         this.startDate = stardDate;
         this.endDate = endDate;
         this.fromCity = fromCity;
         this.toCity = toCity;
         this.status = status;
+        this.imageId = imageID;
     }
 
     public TravelStep() {
@@ -139,5 +141,13 @@ public class TravelStep implements Serializable {
 
     public void setRestaurantID(String restaurantID) {
         this.restaurantID = restaurantID;
+    }
+
+    public int getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 }
