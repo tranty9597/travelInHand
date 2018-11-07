@@ -1,7 +1,5 @@
 package com.alltravel.tytv.travelinhand.services;
 
-import com.alltravel.tytv.travelinhand.model.TravelList;
-import com.alltravel.tytv.travelinhand.model.base.Travel;
 import com.alltravel.tytv.travelinhand.model.base.Travel1;
 
 import retrofit2.Call;
@@ -19,4 +17,5 @@ public interface TravelService {
 
     @POST("travel/create")
     Call<Object> addTravel(@Body Travel1 travel);
+
 }

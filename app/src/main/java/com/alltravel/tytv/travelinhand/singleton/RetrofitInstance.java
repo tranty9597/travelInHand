@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitInstance {
     private static Retrofit retrofit;
     public static final String BASE_URL = "http://192.168.1.11:4200/api/";
-
+    public static final String BASE_IMG = BASE_URL + "image/getById=";
     /**
      * Create an instance of Retrofit object
      * */

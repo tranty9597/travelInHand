@@ -3,33 +3,26 @@ package com.alltravel.tytv.travelinhand.model.base;
 import java.io.Serializable;
 
 public class RestaurantBooking implements Serializable {
-    private int ID;
-    private int travelStepID;
-    private String restaurantID;
-    private String bookingTime;
-
-    public RestaurantBooking(int ID, int travelStepID, String restaurantID, String bookTime) {
-        this.ID = ID;
+    private int id, travelStepID, imageID;
+    private String restaurantID, bookingTime, restaurantNm;;
+    public RestaurantBooking(int id, int travelStepID, int imageID, String restaurantID, String bookingTime, String restaurantNm) {
+        this.id = id;
         this.travelStepID = travelStepID;
+        this.imageID = imageID;
         this.restaurantID = restaurantID;
-        this.bookingTime = bookTime;
-    }
-
-    public RestaurantBooking(int travelStepID, String restaurantID, String bookTime) {
-        this.travelStepID = travelStepID;
-        this.restaurantID = restaurantID;
-        this.bookingTime = bookTime;
+        this.bookingTime = bookingTime;
+        this.restaurantNm = restaurantNm;
     }
 
     public RestaurantBooking() {
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getTravelStepID() {
@@ -48,21 +41,27 @@ public class RestaurantBooking implements Serializable {
         this.restaurantID = restaurantID;
     }
 
-    public String getBookTime() {
+    public String getBookingTime() {
         return bookingTime;
     }
 
-    public void setBookTime(String bookTime) {
-        this.bookingTime = bookTime;
+    public void setBookingTime(String bookingTime) {
+        this.bookingTime = bookingTime;
     }
 
-    @Override
-    public String toString() {
-        return "RestaurantBooking{" +
-                "ID=" + ID +
-                ", travelStepID=" + travelStepID +
-                ", restaurantID='" + restaurantID + '\'' +
-                ", bookingTime='" + bookingTime + '\'' +
-                '}';
+    public int getImageID() {
+        return imageID;
+    }
+
+    public void setImageID(int imageID) {
+        this.imageID = imageID;
+    }
+
+    public String getRestaurantNm() {
+        return restaurantNm;
+    }
+
+    public void setRestaurantNm(String restaurantNm) {
+        this.restaurantNm = restaurantNm;
     }
 }

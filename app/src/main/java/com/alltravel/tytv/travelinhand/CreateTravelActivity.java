@@ -16,6 +16,7 @@ import com.alltravel.tytv.travelinhand.Fragment.TransportationFragment;
 import com.alltravel.tytv.travelinhand.adapters.CreateTravelViewPagerAdapter;
 import com.alltravel.tytv.travelinhand.model.base.Restaurant;
 import com.alltravel.tytv.travelinhand.model.base.RestaurantBooking;
+import com.alltravel.tytv.travelinhand.model.base.RestaurantBookingGetting;
 import com.alltravel.tytv.travelinhand.model.base.StepTravel;
 import com.alltravel.tytv.travelinhand.model.base.StepTravel1;
 import com.alltravel.tytv.travelinhand.model.base.Transportation;
@@ -209,7 +210,7 @@ public class CreateTravelActivity extends AppCompatActivity implements Transport
                                 JsonObject travelJson = resJson.getAsJsonObject("data");
                                 stepTravelID = travelJson.get("insertId").getAsInt();
                                 for (Restaurant rb : restaurants) {
-                                    RestaurantBooking restaurantBooking = new RestaurantBooking(stepTravelID, rb.getID(), convertDate(new Date()));
+                                    RestaurantBookingGetting restaurantBooking = new RestaurantBookingGetting(stepTravelID, rb.getID(), convertDate(new Date()));
                                     RestaurantBookingService restaurantBookingService = RetrofitInstance.getRetrofitInstance().create(RestaurantBookingService.class);
                                     retrofit2.Call<Object> call3 = restaurantBookingService.addRestaurantBooking(restaurantBooking);
                                     call3.enqueue(new Callback<Object>() {
