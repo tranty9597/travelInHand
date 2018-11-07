@@ -7,31 +7,31 @@ public class StepTravel implements Serializable {
     private int traveID;
     private String fromCity;
     private String toCity;
-    private int transportationID;
+    private String transportationID;
     private String hotelID;
-    private String restaurantID;
+    private int restaurantBookID;
     private String startDate;
     private String endDate;
 
-    public StepTravel(int ID, int traveID, String fromCity, String toCity, int transportationID, String hotelID, String restaurantID, String startDate, String endDate) {
+    public StepTravel(int ID, int traveID, String fromCity, String toCity, String transportationID, String hotelID, int restaurantBookID, String startDate, String endDate) {
         this.ID = ID;
         this.traveID = traveID;
         this.fromCity = fromCity;
         this.toCity = toCity;
         this.transportationID = transportationID;
         this.hotelID = hotelID;
-        this.restaurantID = restaurantID;
+        this.restaurantBookID = restaurantBookID;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public StepTravel(int traveID, String fromCity, String toCity, int transportationID, String hotelID, String restaurantID, String startDate, String endDate) {
+    public StepTravel(int traveID, String fromCity, String toCity, String transportationID, String hotelID, int restaurantBookID, String startDate, String endDate) {
         this.traveID = traveID;
         this.fromCity = fromCity;
         this.toCity = toCity;
         this.transportationID = transportationID;
         this.hotelID = hotelID;
-        this.restaurantID = restaurantID;
+        this.restaurantBookID = restaurantBookID;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -68,11 +68,11 @@ public class StepTravel implements Serializable {
         this.toCity = toCity;
     }
 
-    public int getTransportationID() {
+    public String getTransportationID() {
         return transportationID;
     }
 
-    public void setTransportationID(int transportationID) {
+    public void setTransportationID(String transportationID) {
         this.transportationID = transportationID;
     }
 
@@ -84,12 +84,12 @@ public class StepTravel implements Serializable {
         this.hotelID = hotelID;
     }
 
-    public String getRestaurantID() {
-        return restaurantID;
+    public int getRestaurantID() {
+        return restaurantBookID;
     }
 
-    public void setRestaurantID(String restaurantID) {
-        this.restaurantID = restaurantID;
+    public void setRestaurantID(int restaurantID) {
+        this.restaurantBookID = restaurantBookID;
     }
 
     public String getStartDate() {
@@ -106,5 +106,20 @@ public class StepTravel implements Serializable {
 
     public void setEndDate(String endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "StepTravel{" +
+                "ID=" + ID +
+                ", traveID=" + traveID +
+                ", fromCity='" + fromCity + '\'' +
+                ", toCity='" + toCity + '\'' +
+                ", transportationID='" + transportationID + '\'' +
+                ", hotelID='" + hotelID + '\'' +
+                ", restaurantBookID=" + restaurantBookID +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                '}';
     }
 }

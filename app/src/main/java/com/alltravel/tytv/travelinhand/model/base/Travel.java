@@ -8,7 +8,7 @@ public class Travel implements Serializable {
     @SerializedName("ID")
     private int ID;
     @SerializedName("ussername")
-    private  String ussername;
+    private  String username;
     @SerializedName("dateCreated")
     private String dateCreated;
     @SerializedName("travelNm")
@@ -18,9 +18,9 @@ public class Travel implements Serializable {
     @SerializedName("status")
     private int status;
 
-    public Travel(int ID, String ussername, String dateCreated, String travelNm, String travelDes, int status) {
+    public Travel(int ID, String username, String dateCreated, String travelNm, String travelDes, int status) {
         this.ID = ID;
-        this.ussername = ussername;
+        this.username = username;
         this.dateCreated = dateCreated;
         this.travelNm = travelNm;
         this.travelDes = travelDes;
@@ -28,7 +28,7 @@ public class Travel implements Serializable {
     }
 
     public Travel(String ussername, String dateCreated, String travelNm, String travelDes, int status) {
-        this.ussername = ussername;
+        this.username = ussername;
         this.dateCreated = dateCreated;
         this.travelNm = travelNm;
         this.travelDes = travelDes;
@@ -47,11 +47,11 @@ public class Travel implements Serializable {
     }
 
     public String getUssername() {
-        return ussername;
+        return username;
     }
 
     public void setUssername(String ussername) {
-        this.ussername = ussername;
+        this.username = ussername;
     }
 
     public String getDateCreated() {
@@ -84,5 +84,17 @@ public class Travel implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Travel{" +
+                "ID=" + ID +
+                ", username='" + username + '\'' +
+                ", dateCreated='" + dateCreated + '\'' +
+                ", travelNm='" + travelNm + '\'' +
+                ", travelDes='" + travelDes + '\'' +
+                ", status=" + status +
+                '}';
     }
 }

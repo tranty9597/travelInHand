@@ -130,12 +130,10 @@ public class TransportationFragment extends Fragment {
     private void fetchData(final TransportationFragment fragment, String from_location, String to_location) {
         final ArrayList<Transportation> listTrans = new ArrayList<>();
         TransportationService transportationService = RetrofitInstance.getRetrofitInstance().create(TransportationService.class);
-        Call<Object> call = transportationService.getTransportation("1", "2");
+        Call<Object> call = transportationService.getTransportation("CITY-1", "CITY-1");
         call.enqueue(new Callback<Object>() {
             @Override
             public void onResponse(Call<Object> call, Response<Object> response) {
-                System.out.println("==============");
-                System.out.println(response.body());
                 JsonParser parser = new JsonParser();
                 JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
                 if(resJson.get("isError").getAsBoolean()){
@@ -155,8 +153,6 @@ public class TransportationFragment extends Fragment {
                                 stepObj.get("description").getAsString()
                         ));
                     }
-                    System.out.println("=================Size");
-                    System.out.println(listTrans.size());
                     if (!listTrans.isEmpty()) {
                         TransportationListAdapter adapter = new TransportationListAdapter((CreateTravelActivity)getActivity() ,fragment, listTrans);
                         listView.setAdapter(adapter);

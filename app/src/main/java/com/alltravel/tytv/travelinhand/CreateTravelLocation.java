@@ -13,10 +13,13 @@ public class CreateTravelLocation extends AppCompatActivity {
     private TextView txtDestination;
     private String departure = "";
     private String destination = "";
+    private int insertKey=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        insertKey = intent.getIntExtra("insertKey",-1);
         setContentView(R.layout.activity_create_travel_location);
         this.txtDeparture = findViewById(R.id.txtDeparture);
         this.txtDestination = findViewById(R.id.txtDestination);
@@ -31,7 +34,10 @@ public class CreateTravelLocation extends AppCompatActivity {
             Intent intent = new Intent(this, CreateTravelActivity.class);
             intent.putExtra("FromLocation", this.departure);
             intent.putExtra("ToLocation", this.destination);
+            System.out.println(">>>>Add Location"+insertKey);
+            intent.putExtra("insertKey",insertKey);
             startActivity(intent);
+            finish();
         }
     }
 }

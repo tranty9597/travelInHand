@@ -150,4 +150,24 @@ public class TravelStep implements Serializable {
     public void setImageId(int imageId) {
         this.imageId = imageId;
     }
+
+
+    @Override
+    public String toString() {
+        return "TravelStep{" +
+                "id=" + id +
+                ", travel_id=" + travel_id +
+                ", fromCityID='" + fromCityID + '\'' +
+                ", toCityID='" + toCityID + '\'' +
+                ", restaurantID='" + restaurantID + '\'' +
+                ", tranpositationID='" + tranpositationID + '\'' +
+                ", hotelID='" + hotelID + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", fromCity='" + fromCity + '\'' +
+                ", toCity='" + toCity + '\'' +
+                ", status=" + status +
+                ", imageId=" + imageId +
+                '}';
+    }
 }

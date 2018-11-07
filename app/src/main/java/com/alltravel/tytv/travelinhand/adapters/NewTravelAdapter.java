@@ -42,7 +42,7 @@ public class NewTravelAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = listAllStepForTravel.getLayoutInflater().inflate(R.layout.new_travel_layout, null);
             holder = new Holder();
-            holder.textView = convertView.findViewById(R.id.textView2);
+            holder.textView = convertView.findViewById(R.id.textView14);
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();

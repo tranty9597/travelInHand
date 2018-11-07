@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -50,17 +51,22 @@ public class AddTravelRestaurantAdapter extends BaseAdapter {
             convertView = restaurantFragmentFrag.getLayoutInflater().inflate(R.layout.list_restaurant, null);
             holder = new AddTravelRestaurantAdapter.Holder();
             holder.textView = convertView.findViewById(R.id.textView22);
-            holder.radioButton = convertView.findViewById(R.id.radioButton2);
+            holder.checkBox = convertView.findViewById(R.id.checkBox);
             convertView.setTag(holder);
         }else{
             holder = (AddTravelRestaurantAdapter.Holder) convertView.getTag();
         }
-        holder.radioButton.setTag(list.get(position));
-        holder.radioButton.setOnClickListener(new View.OnClickListener() {
+        holder.checkBox.setTag(list.get(position));
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-                Restaurant restaurant1 =(Restaurant) v.getTag();
-                activity.setRestaurant(restaurant1.getID());
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Restaurant restaurant1 =(Restaurant) buttonView.getTag();
+                if(isChecked){
+                    activity.setRestaurant(restaurant1);
+                }
+                else{
+                    activity.removeRestaurant(restaurant1);
+                }
             }
         });
         Restaurant restaurant = list.get(position);
@@ -82,6 +88,6 @@ public class AddTravelRestaurantAdapter extends BaseAdapter {
 
     class Holder {
         TextView textView;
-        RadioButton radioButton;
+        CheckBox checkBox;
     }
 }
