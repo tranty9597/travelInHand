@@ -2,8 +2,6 @@ package com.alltravel.tytv.travelinhand;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,14 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
-import com.alltravel.tytv.travelinhand.model.base.User;
-import com.alltravel.tytv.travelinhand.singleton.UserInstance;
 
 public class DasboardActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    CardView onTrvelCard, historyCard, newTravelCard, profileCard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,9 +92,31 @@ public class DasboardActivity extends AppCompatActivity
         return true;
     }
     private void initComponent(){
-        User userIntance = UserInstance.getUserInstance();
-        
+        onTrvelCard = findViewById(R.id.onTravelCard);
+        newTravelCard = findViewById(R.id.newtravelCard);
+        historyCard = findViewById(R.id.onHistoryCard);
+        profileCard = findViewById(R.id.profileCard);
 
+        onTrvelCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGoToOnTravel();
+            }
+        });
+
+        newTravelCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGoToNewTravel();
+            }
+        });
+
+        historyCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onGoToHistory();
+            }
+        });
     }
     private void onGoToOnTravel(){
         Intent i = new Intent(this, OnTravelActitvity.class);
