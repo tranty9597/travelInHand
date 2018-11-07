@@ -27,6 +27,10 @@
             android:name=".OnTravelActitvity"
             android:label="@string/title_activity_on_travel_actitvity" />
         <activity android:name=".StepDetailActivity"></activity>
+        <activity
+            android:name=".HistoryAcivity"/>
+        <activity
+            android:name=".HistoryDetailActivity"/>
     </application>
 
 </manifest>

@@ -70,7 +70,7 @@ public class StepAdapter extends BaseAdapter {
             }
         });
         stepHolder.stepTitle.setText(step.getFromCity() + " - " + step.getToCity());
-        stepHolder.stepDesc.setText(step.getStardDate() + step.getEndDate());
+        stepHolder.stepDesc.setText(step.getStardDate() + " - " + step.getEndDate());
         return convertView;
     }
 }
