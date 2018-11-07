@@ -83,7 +83,7 @@ public class DasboardActivity extends AppCompatActivity
                 onGoToOnTravel();
                 break;
             case R.id.nav_newTravel:
-                onGoToOnTravel();
+                onGoToNewTravel();
                 break;
             case R.id.nav_history:
                 onGoToOnTravel();
@@ -104,6 +104,11 @@ public class DasboardActivity extends AppCompatActivity
     }
     private void onGoToOnTravel(){
         Intent i = new Intent(this, OnTravelActitvity.class);
+        startActivity(i);
+    }
+
+    private void onGoToNewTravel(){
+        Intent i = new Intent(this, ListAllStepForTravel.class);
         startActivity(i);
     }
 }

@@ -26,7 +26,13 @@
         <activity
             android:name=".OnTravelActitvity"
             android:label="@string/title_activity_on_travel_actitvity" />
-        <activity android:name=".StepDetailActivity"></activity>
+        <activity android:name=".StepDetailActivity" />
+        android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CreateTravelActivity" />
+        <activity android:name=".CreateTravelLocation" />
+        <activity android:name=".DetailTransportation" />
+        <activity android:name=".DetailHotel" />
+        <activity android:name=".ListAllStepForTravel"></activity>
     </application>
 
 </manifest>

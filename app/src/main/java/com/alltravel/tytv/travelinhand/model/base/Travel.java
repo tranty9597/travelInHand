@@ -27,6 +27,14 @@ public class Travel implements Serializable {
         this.status = status;
     }
 
+    public Travel(String ussername, String dateCreated, String travelNm, String travelDes, int status) {
+        this.ussername = ussername;
+        this.dateCreated = dateCreated;
+        this.travelNm = travelNm;
+        this.travelDes = travelDes;
+        this.status = status;
+    }
+
     public Travel() {
     }
 
