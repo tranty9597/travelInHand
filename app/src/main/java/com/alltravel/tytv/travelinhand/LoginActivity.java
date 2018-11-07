@@ -33,11 +33,9 @@ public class LoginActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         usernameTxt = findViewById(R.id.usernameTxt);
         passwordTxt = findViewById(R.id.passwordTxt);
         loginErrorTxt = findViewById(R.id.loginErrorTxt);
-
         progressBar = new ProgressDialog(this);
         progressBar.setTitle("Loading");
         progressBar.setMessage("Wait while loading...");
@@ -67,6 +65,7 @@ public class LoginActivity extends Activity {
                 progressBar.dismiss();
                 JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
                 loginErrorTxt.setText(resJson.get("message").getAsString());
+                System.out.println("......"+resJson.get("message").getAsString());
                 if(resJson.get("isError").getAsBoolean()){
                     return;
                 }else{
@@ -77,6 +76,8 @@ public class LoginActivity extends Activity {
                     userInstance.setPhone(userJson.get("phone").getAsString());
                     userInstance.setEmail(userJson.get("email").getAsString());
                     userInstance.setAccessToken(userJson.get("accessToken").getAsString());
+                    System.out.println("===========Token");
+                    System.out.println(userInstance.getAccessToken());
                     onGotToDashboard();
                 }
             }
@@ -84,6 +85,8 @@ public class LoginActivity extends Activity {
             @Override
             public void onFailure(Call<Object> call, Throwable t) {
                 loginErrorTxt.setText(t.getMessage());
+                System.out.println("==========");
+                System.out.println(t.getMessage());
                 Log.wtf("sss", t.getMessage());
                 progressBar.dismiss();
             }
@@ -96,7 +99,6 @@ public class LoginActivity extends Activity {
 
     private void onGotToDashboard(){
         Intent i = new Intent(this, DasboardActivity.class);
-
         startActivity(i);
     }
 }

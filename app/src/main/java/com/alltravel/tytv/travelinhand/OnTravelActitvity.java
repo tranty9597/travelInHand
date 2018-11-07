@@ -100,6 +100,7 @@ public class OnTravelActitvity extends AppCompatActivity {
 
                 JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
                 if(resJson.get("isError").getAsBoolean()){
+                    System.out.println("Is  error");
                     return;
                 }else {
                     JsonArray data = resJson.get("data").getAsJsonArray();
