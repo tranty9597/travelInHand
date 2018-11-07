@@ -3,34 +3,26 @@ package com.alltravel.tytv.travelinhand.adapters;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alltravel.tytv.travelinhand.HistoryAcivity;
 import com.alltravel.tytv.travelinhand.R;
 import com.alltravel.tytv.travelinhand.model.base.Travel;
-import com.alltravel.tytv.travelinhand.model.base.User;
-import com.alltravel.tytv.travelinhand.services.TravelService;
-import com.alltravel.tytv.travelinhand.singleton.RetrofitInstance;
-import com.alltravel.tytv.travelinhand.singleton.UserInstance;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.alltravel.tytv.travelinhand.singleton.TravelInstance;
 
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HistoryAdapter extends
         RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
 
-
+    private HistoryAcivity historyAcivity;
+    public HistoryAdapter(HistoryAcivity historyAcivity) {
+        this.historyAcivity = historyAcivity;
+    }
     ArrayList<Travel> lstTravel;
     public void setLstTravel(ArrayList<Travel> lstTravel) {
         this.lstTravel = lstTravel;
@@ -41,16 +33,31 @@ public class HistoryAdapter extends
         View v = LayoutInflater.from(viewGroup.getContext())
 
                 .inflate(R.layout.card_layout, viewGroup, false);
+
         ViewHolder viewHolder = new ViewHolder(v);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        viewHolder.itemTravelName.setText(lstTravel.get(i).getTravelNm() + "-" + lstTravel.get(i).getTravelDes());
+        viewHolder.itemTravelName.setText(lstTravel.get(i).getTravelNm());
         viewHolder.itemDateCreated.setText(lstTravel.get(i).getDateCreated());
-        viewHolder.itemStatus.setText(lstTravel.get(i).getStatus() + "");
-
+        String status = "";
+        switch(lstTravel.get(i).getStatus()) {
+            case 0:
+                status = "About to";
+                break;
+            case 1:
+                status = "On going";
+                break;
+            case 2:
+                status = "Done";
+                break;
+            case 3:
+                status = "Cancle";
+                break;
+        }
+        viewHolder.itemStatus.setText(status);
     }
 
     @Override
@@ -76,13 +83,15 @@ public class HistoryAdapter extends
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     int position = getAdapterPosition();
-                    Snackbar.make(v, "Click detected on item " + position,
-
-                            Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Travel travelInstance = lstTravel.get(position);
+                    doDisplay(travelInstance);
                 }
             });
         }
+
+        public void doDisplay(Travel travel) {
+            historyAcivity.doDisplayDetail(travel);
+        }
     }
-    }
+}
 

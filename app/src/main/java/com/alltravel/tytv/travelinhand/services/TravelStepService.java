@@ -13,4 +13,7 @@ public interface TravelStepService {
 
     @GET("travelStep/getDetail")
     Call<Object> getStepDetail(@Query("id") int id);
+
+    @GET("travelStep/getHistoryDetail")
+    Call<Object> getHistoryStepDetail(@Query("id") int id);
 }
