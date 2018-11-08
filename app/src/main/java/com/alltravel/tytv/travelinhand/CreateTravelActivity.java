@@ -180,78 +180,130 @@ public class CreateTravelActivity extends AppCompatActivity implements Transport
         travel = new Travel1(user.getUsername(), "New Travel of " + user.getFullName(), "", convertDate(new Date()));
         Toast.makeText(this, "Transporation ID: " + transportation_id + "\n Restaurant:" + restaurants.size() + "\nHotel:" + hotelID, Toast.LENGTH_SHORT).show();
 
+        if(insertKey==-1){
+            TravelService travelService = RetrofitInstance.getRetrofitInstance().create(TravelService.class);
+            Call<Object> call = travelService.addTravel(travel);
+            call.enqueue(new Callback<Object>() {
 
-        TravelService travelService = RetrofitInstance.getRetrofitInstance().create(TravelService.class);
-        Call<Object> call = travelService.addTravel(travel);
-        call.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(Call<Object> call, Response<Object> response) {
+                    JsonParser parser = new JsonParser();
+                    JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
+                    if (resJson.get("isError").getAsBoolean()) {
+                    } else {
+                        JsonObject travelJson = resJson.getAsJsonObject("data");
+                        if (insertKey == -1) {
+                            insertKey = travelJson.get("insertId").getAsInt();
 
-            @Override
-            public void onResponse(Call<Object> call, Response<Object> response) {
-                JsonParser parser = new JsonParser();
-                JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
-                if (resJson.get("isError").getAsBoolean()) {
-                } else {
-                    JsonObject travelJson = resJson.getAsJsonObject("data");
-                    if (insertKey == -1) {
-                        insertKey = travelJson.get("insertId").getAsInt();
-                        System.out.println(">>>>>>>" + insertKey);
-                    }
-                    stepTravel = new StepTravel1(insertKey, fromCity, toCity, transportation_id, hotelID, 1, convertDate(new Date()), convertDate(new Date()));
-                    TravelStepService travelStepService = RetrofitInstance.getRetrofitInstance().create(TravelStepService.class);
-                    Call<Object> call2 = travelStepService.addStepTravel(stepTravel);
-                    call2.enqueue(new Callback<Object>() {
-                        @Override
-                        public void onResponse(Call<Object> call, Response<Object> response) {
-                            JsonParser parser = new JsonParser();
-                            JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
+                            System.out.println(">>>>>>>" + insertKey);
+                        }
+                        stepTravel = new StepTravel1(insertKey, fromCity, toCity, transportation_id, hotelID, 1, convertDate(new Date()), convertDate(new Date()));
+                        TravelStepService travelStepService = RetrofitInstance.getRetrofitInstance().create(TravelStepService.class);
+                        Call<Object> call2 = travelStepService.addStepTravel(stepTravel);
+                        call2.enqueue(new Callback<Object>() {
+                            @Override
+                            public void onResponse(Call<Object> call, Response<Object> response) {
+                                JsonParser parser = new JsonParser();
+                                JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
 //                System.out.println("......" + resJson.get("message").getAsString());
-                            if (resJson.get("isError").getAsBoolean()) {
-                            } else {
-                                JsonObject travelJson = resJson.getAsJsonObject("data");
-                                stepTravelID = travelJson.get("insertId").getAsInt();
-                                for (Restaurant rb : restaurants) {
-                                    RestaurantBookingGetting restaurantBooking = new RestaurantBookingGetting(stepTravelID, rb.getID(), convertDate(new Date()));
-                                    RestaurantBookingService restaurantBookingService = RetrofitInstance.getRetrofitInstance().create(RestaurantBookingService.class);
-                                    retrofit2.Call<Object> call3 = restaurantBookingService.addRestaurantBooking(restaurantBooking);
-                                    call3.enqueue(new Callback<Object>() {
-                                        @Override
-                                        public void onResponse(retrofit2.Call<Object> call, Response<Object> response) {
-                                            JsonParser parser = new JsonParser();
-                                            JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
+                                if (resJson.get("isError").getAsBoolean()) {
+                                } else {
+                                    JsonObject travelJson = resJson.getAsJsonObject("data");
+                                    stepTravelID = travelJson.get("insertId").getAsInt();
+                                    for (Restaurant rb : restaurants) {
+                                        RestaurantBookingGetting restaurantBooking = new RestaurantBookingGetting(stepTravelID, rb.getID(), convertDate(new Date()));
+                                        RestaurantBookingService restaurantBookingService = RetrofitInstance.getRetrofitInstance().create(RestaurantBookingService.class);
+                                        retrofit2.Call<Object> call3 = restaurantBookingService.addRestaurantBooking(restaurantBooking);
+                                        call3.enqueue(new Callback<Object>() {
+                                            @Override
+                                            public void onResponse(retrofit2.Call<Object> call, Response<Object> response) {
+                                                JsonParser parser = new JsonParser();
+                                                JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
 
-                                        }
+                                            }
 
-                                        @Override
-                                        public void onFailure(retrofit2.Call<Object> call, Throwable t) {
+                                            @Override
+                                            public void onFailure(retrofit2.Call<Object> call, Throwable t) {
 
-                                        }
-                                    });
+                                            }
+                                        });
+                                    }
+
+                                    Intent intent = new Intent(getApplicationContext(), ListAllStepForTravel.class);
+
+                                    System.out.println(">>>>Create travel" + insertKey);
+                                    intent.putExtra("insertKey", insertKey);
+                                    startActivity(intent);
+                                    finish();
+
+
                                 }
+                            }
 
-                                Intent intent = new Intent(getApplicationContext(), ListAllStepForTravel.class);
-
-                                System.out.println(">>>>Create travel" + insertKey);
-                                intent.putExtra("insertKey", insertKey);
-                                startActivity(intent);
-                                finish();
-
+                            @Override
+                            public void onFailure(Call<Object> call, Throwable t) {
 
                             }
-                        }
-
-                        @Override
-                        public void onFailure(Call<Object> call, Throwable t) {
-
-                        }
-                    });
+                        });
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Object> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {
 
-            }
-        });
+                }
+            });
+        }else {
+            stepTravel = new StepTravel1(insertKey, fromCity, toCity, transportation_id, hotelID, 1, convertDate(new Date()), convertDate(new Date()));
+            TravelStepService travelStepService = RetrofitInstance.getRetrofitInstance().create(TravelStepService.class);
+            Call<Object> call2 = travelStepService.addStepTravel(stepTravel);
+            call2.enqueue(new Callback<Object>() {
+                @Override
+                public void onResponse(Call<Object> call, Response<Object> response) {
+                    JsonParser parser = new JsonParser();
+                    JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
+//                System.out.println("......" + resJson.get("message").getAsString());
+                    if (resJson.get("isError").getAsBoolean()) {
+                    } else {
+                        JsonObject travelJson = resJson.getAsJsonObject("data");
+                        stepTravelID = travelJson.get("insertId").getAsInt();
+                        for (Restaurant rb : restaurants) {
+                            RestaurantBookingGetting restaurantBooking = new RestaurantBookingGetting(stepTravelID, rb.getID(), convertDate(new Date()));
+                            RestaurantBookingService restaurantBookingService = RetrofitInstance.getRetrofitInstance().create(RestaurantBookingService.class);
+                            retrofit2.Call<Object> call3 = restaurantBookingService.addRestaurantBooking(restaurantBooking);
+                            call3.enqueue(new Callback<Object>() {
+                                @Override
+                                public void onResponse(retrofit2.Call<Object> call, Response<Object> response) {
+                                    JsonParser parser = new JsonParser();
+                                    JsonObject resJson = parser.parse(new Gson().toJson(response.body())).getAsJsonObject();
+
+                                }
+
+                                @Override
+                                public void onFailure(retrofit2.Call<Object> call, Throwable t) {
+
+                                }
+                            });
+                        }
+
+                        Intent intent = new Intent(getApplicationContext(), ListAllStepForTravel.class);
+
+                        System.out.println(">>>>Create travel" + insertKey);
+                        intent.putExtra("insertKey", insertKey);
+                        startActivity(intent);
+                        finish();
+
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Object> call, Throwable t) {
+
+                }
+            });
+        }
+
 
 
     }

@@ -196,7 +196,7 @@ public class OnTravelActitvity extends AppCompatActivity {
         return  list;
     }
     public void changeStaus(View v){
-        retrofit2.Call<Object> call = travelStepService.changeStatusTravel(travelID, 3);
+        retrofit2.Call<Object> call = travelStepService.changeStatusTravel(travelID, 2);
 
         call.enqueue(new Callback<Object>() {
             @Override

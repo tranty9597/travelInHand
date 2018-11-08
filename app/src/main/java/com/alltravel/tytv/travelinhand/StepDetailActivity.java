@@ -152,13 +152,7 @@ public class StepDetailActivity extends AppCompatActivity {
 
                 break;
             case 2:
-                sBtn.setText("Done");
-                sBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        changeStaus(3);
-                    }
-                });
+                sBtn.setVisibility(View.INVISIBLE);
         }
     }
     private void changeStaus(int staus){
